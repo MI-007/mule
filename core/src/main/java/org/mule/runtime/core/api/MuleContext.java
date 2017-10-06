@@ -18,6 +18,7 @@ import org.mule.runtime.api.scheduler.SchedulerService;
 import org.mule.runtime.api.serialization.ObjectSerializer;
 import org.mule.runtime.api.store.ObjectStoreManager;
 import org.mule.runtime.api.transformation.TransformationService;
+import org.mule.runtime.api.value.ValueProviderService;
 import org.mule.runtime.core.api.config.MuleConfiguration;
 import org.mule.runtime.core.api.config.bootstrap.ArtifactType;
 import org.mule.runtime.core.api.config.bootstrap.BootstrapServiceDiscoverer;
@@ -37,11 +38,11 @@ import org.mule.runtime.core.api.transformer.DataTypeConversionResolver;
 import org.mule.runtime.core.api.util.StreamCloserService;
 import org.mule.runtime.core.api.util.queue.QueueManager;
 
+import javax.transaction.TransactionManager;
+
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Properties;
-
-import javax.transaction.TransactionManager;
 
 /**
  * @deprecated {@link MuleContext} interface will be replaced in future major version of mule.
@@ -139,6 +140,8 @@ public interface MuleContext extends Lifecycle {
   ObjectStoreManager getObjectStoreManager();
 
   ExtensionManager getExtensionManager();
+
+  ValueProviderService getValueProviderService();
 
   /**
    * The instance of {@link ObjectSerializer} to be used to serialize/deserealize objects

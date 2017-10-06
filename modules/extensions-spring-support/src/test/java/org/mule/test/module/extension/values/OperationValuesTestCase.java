@@ -9,11 +9,13 @@ package org.mule.test.module.extension.values;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mule.tck.junit4.matcher.ValueMatcher.valueWithId;
+
 import org.mule.runtime.api.value.Value;
 import org.mule.tck.junit4.matcher.ValueMatcher;
-import org.junit.Test;
 
 import java.util.Set;
+
+import org.junit.Test;
 
 public class OperationValuesTestCase extends AbstractValuesTestCase {
 
