@@ -11,6 +11,7 @@ import static java.util.Objects.requireNonNull;
 import static org.apache.commons.lang3.SystemUtils.JAVA_VERSION;
 import static org.mule.runtime.api.i18n.I18nMessageFactory.createStaticMessage;
 import static org.mule.runtime.api.serialization.ObjectSerializer.DEFAULT_OBJECT_SERIALIZER_NAME;
+import static org.mule.runtime.api.value.ValueProviderService.VALUE_PROVIDER_SERVICE_KEY;
 import static org.mule.runtime.core.api.config.MuleProperties.LOCAL_OBJECT_STORE_MANAGER;
 import static org.mule.runtime.core.api.config.MuleProperties.OBJECT_CLUSTER_CONFIGURATION;
 import static org.mule.runtime.core.api.config.MuleProperties.OBJECT_COMPONENT_INITIAL_STATE_MANAGER;
@@ -71,6 +72,7 @@ import org.mule.runtime.api.store.ObjectStore;
 import org.mule.runtime.api.store.ObjectStoreManager;
 import org.mule.runtime.api.transformation.TransformationService;
 import org.mule.runtime.api.util.concurrent.Latch;
+import org.mule.runtime.api.value.ValueProviderService;
 import org.mule.runtime.core.api.Injector;
 import org.mule.runtime.core.api.MuleContext;
 import org.mule.runtime.core.api.SingleResourceTransactionFactoryManager;
@@ -123,16 +125,15 @@ import org.mule.runtime.core.privileged.exception.ErrorTypeLocator;
 import org.mule.runtime.core.privileged.registry.RegistrationException;
 import org.mule.runtime.core.privileged.transformer.ExtendedTransformationService;
 
-import org.slf4j.Logger;
+import javax.inject.Inject;
+import javax.transaction.TransactionManager;
 
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-import javax.transaction.TransactionManager;
-
+import org.slf4j.Logger;
 import reactor.core.publisher.Hooks;
 
 public class DefaultMuleContext implements MuleContextWithRegistries, PrivilegedMuleContext {
@@ -611,6 +612,11 @@ public class DefaultMuleContext implements MuleContextWithRegistries, Privileged
   @Override
   public ExtensionManager getExtensionManager() {
     return extensionManager;
+  }
+
+  @Override
+  public ValueProviderService getValueProviderService(){
+    return this.getRegistry().get(VALUE_PROVIDER_SERVICE_KEY);
   }
 
   @Override
