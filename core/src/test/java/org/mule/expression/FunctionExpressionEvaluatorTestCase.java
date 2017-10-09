@@ -75,7 +75,11 @@ public class FunctionExpressionEvaluatorTestCase extends AbstractMuleContextTest
         o = muleContext.getExpressionManager().evaluate("function:now", message);
         assertNotNull(o);
         assertTrue(o instanceof Timestamp);
-
+        
+        o = muleContext.getExpressionManager().evaluate("function:datestamp(yyyyMMdd)", message);
+        assertNotNull(o);
+        assertTrue(o instanceof Date);
+        
         o = muleContext.getExpressionManager().evaluate("function:date", message);
         assertNotNull(o);
         assertTrue(o instanceof Date);
